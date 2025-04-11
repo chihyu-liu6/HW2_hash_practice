@@ -17,7 +17,7 @@ analyze_text_file <- function(filename = "hw2_data.txt") {
   
   words <- lines
   
-  # 使用 named list 統計字詞頻率，達到類似Hash/Dictionary的效果
+  # 使用 named list 統計字詞頻率，達到類似 Hash/Dictionary 的效果
   word_counts <- list()
   for (word in words) {
     if (word %in% names(word_counts)) {
@@ -44,9 +44,12 @@ analyze_text_file <- function(filename = "hw2_data.txt") {
   
   # 4. 繪製直方圖
   ggplot(word_counts_df, aes(x = Word, y = Count)) +
-    geom_bar(stat = "identity") +
-    labs(title = "Word Frequency Histogram", x = "Words", y = "Frequency") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    geom_bar(stat = "identity", fill = "darkslategray") +  # 調整顏色
+    geom_text(aes(label = Count), vjust = -0.3, size = 3) + # 標示數量
+    labs(title = "Word Frequency Histogram (Sorted)", x = "Words", y = "Frequency") +
+    theme_minimal() +  # 使用簡潔的主題
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    scale_x_discrete(limits = word_counts_df$Word) # 確保 x 軸順序正確
 }
 
 # 執行分析
